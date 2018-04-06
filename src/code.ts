@@ -15,11 +15,22 @@ var observable = Observable.create((observer:any) => {
 
 });
 
-observable.subscribe(
+var observer = observable.subscribe(
     (x:any) => addItem(x),
     (error:any) => addItem(error),
     () => addItem('Completed'),
 );
+
+var observer2 = observable.subscribe(
+    (x:any) => addItem(x),
+);
+
+observer.add(observer2)
+
+setTimeout(() => {
+    observer.unsubscribe();
+},6001)
+
 
 function addItem(val:any) {
     var node = document.createElement("li");
