@@ -1,6 +1,6 @@
 # ReactiveX combines the Observer pattern with the Iterator pattern and functional programming with # collections to fill the need for an ideal way of managing sequences of events.
 
-## The essential concepts in RxJS which solve async event management are:
+## The essential concepts in RxJS which solve async event management are: 
 
 * Observable: represents the idea of an invokable collection of future values or events.
 * Observer: is a collection of callbacks that knows how to listen to values delivered by the Observable.
