@@ -1,6 +1,7 @@
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { ReplaySubject } from "rxjs/ReplaySubject";
 
-var subject = new BehaviorSubject('First')
+var subject = new ReplaySubject(30,200)
+//parameter will told how many last things will be add
 
 subject.subscribe(
     data => addItem('Observer 1: ' + data),
@@ -9,18 +10,22 @@ subject.subscribe(
 )
 
 subject.next('The first thing has been sent')
+subject.next('Another thing has been sent')
 subject.next('...Observer 2 is about to subscribe...')
-//the last item of subject is add to observer2 and will be display
+
 
 var observer2 = subject.subscribe(
     data => addItem('Observer 2: ' + data)
 )
 
-subject.next('The second thing has been sent');
-subject.next('A third thing has been sent');
+var i = 1;
+var int = setInterval(() => subject.next(i++),100);
 
-observer2.unsubscribe();
-subject.next('A final thing has been sent');
+setTimeout(() => {
+    var observer2 = subject.subscribe(
+        data => addItem('Observer 2: ' + data)
+    )
+},500)
 
 
 function addItem(val:any) {
