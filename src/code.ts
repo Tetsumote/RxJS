@@ -1,21 +1,11 @@
-import { ReplaySubject } from "rxjs/ReplaySubject";
+import { AsyncSubject } from "rxjs/AsyncSubject";
 
-var subject = new ReplaySubject(30,200)
-//parameter will told how many last things will be add
+var subject = new AsyncSubject()
+
 
 subject.subscribe(
     data => addItem('Observer 1: ' + data),
-    err => addItem(err),
     () => addItem('Observer 1 Completed')
-)
-
-subject.next('The first thing has been sent')
-subject.next('Another thing has been sent')
-subject.next('...Observer 2 is about to subscribe...')
-
-
-var observer2 = subject.subscribe(
-    data => addItem('Observer 2: ' + data)
 )
 
 var i = 1;
@@ -25,6 +15,7 @@ setTimeout(() => {
     var observer2 = subject.subscribe(
         data => addItem('Observer 2: ' + data)
     )
+    subject.complete()
 },500)
 
 
